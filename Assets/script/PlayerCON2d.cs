@@ -51,7 +51,7 @@ public class PlayerCON2d : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             Instantiate(_bullet, transform.position, Quaternion.identity);
         }
@@ -62,12 +62,10 @@ public class PlayerCON2d : MonoBehaviour
         if (move["right"])
         {
             transform.Translate(right, 0f, 0f);
-            transform.rotation = new Quaternion(0, 0, 0, 0);
         }
         if (move["left"])
         {
-            transform.Translate(right, 0f, 0f);
-            transform.rotation = new Quaternion(0, 0, 180, 0);
+            transform.Translate(-right, 0f, 0f);
         }
     }
 
