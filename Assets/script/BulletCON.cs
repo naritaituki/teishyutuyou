@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletCON : MonoBehaviour
 {
+    public GameObject _enemy;
     public GameObject _muzule;
     public GameObject _bullet;
     Vector2 _transfome;
@@ -21,6 +22,10 @@ public class BulletCON : MonoBehaviour
         if (transform.position.x > _transfome.x + 20)
         {
           Destroy(gameObject);
+        }
+        if(transform.position.x == _enemy.transform.position.x)
+        {
+            Destroy(gameObject);
         }
     }
 }
