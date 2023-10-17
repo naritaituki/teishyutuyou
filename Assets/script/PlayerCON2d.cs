@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerCON2d : MonoBehaviour
 {
-    public GameObject _bullet;
+    [SerializeField] int _life = 5;//ライフ
+    public GameObject _bullet;//弾
+    public GameObject _enemybullet;//敵の弾
 
     float up = 0.2f;
-    float right = 0.1f;
+    float right = 0.1f;//右に移動（マイナスにすれば左）
 
     //jumpCount
     [SerializeField] private int _jcount = 0;
@@ -29,10 +31,11 @@ public class PlayerCON2d : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //プレイヤーの左右の動き
         move["right"] = Input.GetKey(KeyCode.RightArrow);
         move["left"] = Input.GetKey(KeyCode.LeftArrow);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))//ジャンプ
         {
             if (_jcount < 2)
             {
@@ -53,12 +56,24 @@ public class PlayerCON2d : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
+            //弾を生み出す
             Instantiate(_bullet, transform.position, Quaternion.identity);
+        }
+        if(transform.position.x == _enemybullet.transform.position.x)//敵の玉と自分が同じ位置なら
+        {
+            //ライフを１減らす
+           _life= _life - 1;
+            if (_life == 0)//ライフが０なら
+            {
+                //プレイヤーを消す
+                Destroy(gameObject);
+            }
         }
     }
 
     void FixedUpdate()
     {
+        //プレイヤーの左右の動き
         if (move["right"])
         {
             transform.Translate(right, 0f, 0f);
@@ -71,6 +86,7 @@ public class PlayerCON2d : MonoBehaviour
 
     IEnumerator Jump()
     {
+        //ジャンプの判定
         for (int i = 0; i < 15; i++)
         {
             transform.Translate(0f, up, 0f);
